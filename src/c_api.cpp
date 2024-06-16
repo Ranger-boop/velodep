@@ -103,14 +103,14 @@ double* get_mu_RSF(RSF_tau_fix* rsf_ptr)
 
 
 // C API for the class FracAperture
-FracApertureImpl* new_FracAperture(
+FracAperture* new_FracAperture(
     double dil_fact, double D_c, double dil_ang, double b_0,
     const double u_end[], size_t num_u_end,
     const double u_ini[], size_t num_u_ini,
     const double v[], size_t num_v
 ) {
     try {
-        return new FracApertureImpl(
+        return new FracAperture(
             dil_fact, D_c, dil_ang, b_0,
             u_end, num_u_end,
             u_ini, num_u_ini,
@@ -123,22 +123,22 @@ FracApertureImpl* new_FracAperture(
     }
 }
 
-void delete_FracAperture(FracApertureImpl* p_frac_apt)
+void delete_FracAperture(FracAperture* p_frac_apt)
 {
     delete p_frac_apt;
 }
 
-void solve_FracAperture(FracApertureImpl* p_frac_apt)
+void solve_FracAperture(FracAperture* p_frac_apt)
 {
     p_frac_apt->solve();
 }
 
-size_t get_len_b_FracAperture(FracApertureImpl* p_frac_apt)
+size_t get_len_b_FracAperture(FracAperture* p_frac_apt)
 {
     return p_frac_apt->get_len_b();
 }
 
-double* get_b_mod_FracAperture(FracApertureImpl* p_frac_apt)
+double* get_b_mod_FracAperture(FracAperture* p_frac_apt)
 {
     return p_frac_apt->get_b_mod();
 }

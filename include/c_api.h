@@ -51,7 +51,7 @@ API double * get_mu_RSF(RSF_tau_fix *rsf_ptr);
 
 // C API for the class FracAperture
 // Creat a FracAperture object
-API FracApertureImpl* new_FracAperture(
+API FracAperture* new_FracAperture(
     double dil_fact, double D_c, double dil_ang, double b_0,
     const double u_end[], size_t num_u_end,
     const double u_ini[], size_t num_u_ini,
@@ -59,14 +59,14 @@ API FracApertureImpl* new_FracAperture(
 );
 
 // Destruct the pointed object
-API void delete_FracAperture(FracApertureImpl* p_frac_apt);
+API void delete_FracAperture(FracAperture* p_frac_apt);
 
 // Solve the evolving fracture aperture
-API void solve_FracAperture(FracApertureImpl* p_frac_apt);
+API void solve_FracAperture(FracAperture* p_frac_apt);
 
-API size_t get_len_b_FracAperture(FracApertureImpl* p_frac_apt);
+API size_t get_len_b_FracAperture(FracAperture* p_frac_apt);
 
-API double* get_b_mod_FracAperture(FracApertureImpl* p_frac_apt);
+API double* get_b_mod_FracAperture(FracAperture* p_frac_apt);
 
 #ifdef __cplusplus
 }

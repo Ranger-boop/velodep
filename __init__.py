@@ -305,6 +305,35 @@ dll.get_b_mod_FracAperture.argtypes = (ctypes.POINTER(ctypes.c_void_p),)
 
 
 class FracAperture:
+    """
+    A solver to compute fracture aperture based on the displacement- and 
+    velocity-dependent aperture model.
+
+    Parameters
+    ----------
+    dil_fact : float
+        Dilation factor.
+    D_c : float
+        Characteristic slip distance.
+    dil_ang : float
+        Dilation angle.
+    b_0 : float
+        Initial aperture at the onset of reactivation (the beginning of the
+        first velocity step).
+    u_end : ndarray
+        Slip displacement after the reactivation of fracture at the end of
+        each velocity step.
+    u_ini : ndarray
+        Slip displacement after the reactivation of fracture at the initial
+        time of each velocity step.
+    v : ndarray
+        Slip velocity at each velocity step.
+    cp : bool
+        A flag to specify if it is necessary to copy the transfered arrays.
+        The default value is True for memory safety. Turn it to False only if
+        the transfered arrays are self-holded np.ndarray objects rather than 
+        the slices of any other objects.
+    """
     def __init__(
         self,
         dil_fact: np.float64,
