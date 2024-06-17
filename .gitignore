@@ -1,5 +1,7 @@
 __pycache__
 .vscode
-build/*
+build/*.*
+build/x64
+build/CMakeFiles
 *.py[cod]
 *.ipynb
