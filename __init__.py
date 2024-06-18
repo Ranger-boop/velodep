@@ -1,11 +1,24 @@
 import os
 import ctypes
 import numpy as np
+from .functions import *
+
+STATUS = "Developing"
 
 # Load the shared library
 current_dir = os.path.dirname(os.path.abspath(__file__))
-# dll_path = os.path.join(current_dir, "build/bin/Debug/rsf.dll")
-dll_path = os.path.join(current_dir, "build/bin/Release/rsf.dll")
+if STATUS == "Developing":
+    if os.name == "nt":
+        # dll_path = os.path.join(current_dir, "build/bin/Debug/rsf.dll")
+        dll_path = os.path.join(current_dir, "build/bin/Release/rsf.dll")
+    else:
+        # dll_path = os.path.join(current_dir, "build/bin/Debug/librsf.so")
+        dll_path = os.path.join(current_dir, "build/bin/Release/librsf.so")
+elif STATUS == "Releasing":
+    if os.name == "nt":
+        dll_path = os.path.join(current_dir, "bin/rsf.dll")
+    else:
+        dll_path = os.path.join(current_dir, "bin/librsf.so")
 dll = ctypes.cdll.LoadLibrary(dll_path)
 
 # Define the argtypes and restypes of the C apis.
@@ -306,7 +319,7 @@ dll.get_b_mod_FracAperture.argtypes = (ctypes.POINTER(ctypes.c_void_p),)
 
 class FracAperture:
     """
-    A solver to compute fracture aperture based on the displacement- and 
+    A solver to compute fracture aperture based on the displacement- and
     velocity-dependent aperture model.
 
     Parameters
@@ -331,9 +344,10 @@ class FracAperture:
     cp : bool
         A flag to specify if it is necessary to copy the transfered arrays.
         The default value is True for memory safety. Turn it to False only if
-        the transfered arrays are self-holded np.ndarray objects rather than 
+        the transfered arrays are self-holded np.ndarray objects rather than
         the slices of any other objects.
     """
+
     def __init__(
         self,
         dil_fact: np.float64,
@@ -386,24 +400,3 @@ class FracAperture:
     def b_mod(self) -> np.ndarray:
         ptr = dll.get_b_mod_FracAperture(self.obj)
         return np.ctypeslib.as_array(ptr, shape=(self.__len_b,))
-
-
-def rmse(val_mod: np.ndarray, val_exp: np.ndarray) -> float:
-    """
-    Compute and return the value of Root Mean Square Error (RMSE)
-    between the calculated and measured values.
-
-    Parameters
-    ----------
-    val_mod : ndarray
-        The values calculated by model.
-    disp_exp : ndarray
-        The values measured in experiment.
-    output : float
-        The computed RMSE of the two sets of values.
-    """
-    if np.isnan(val_mod).any():
-        dest = np.inf
-    else:
-        dest = np.sqrt(np.sum((val_mod - val_exp) ** 2) / len(val_mod))
-    return dest
