@@ -157,24 +157,3 @@ def rmse(val_mod: np.ndarray, val_exp: np.ndarray) -> float:
 #         b_mod[i] = b_mod_n(b_slip[i], d_phi_2dim[i])
 
 #     return b_mod
-
-
-# def rmse(b_mod: np.ndarray, b_exp: np.ndarray) -> float:
-#     """
-#     Compute and return the value of Root Mean Square Error (RMSE)
-#     between the calculated and measured aperture.
-
-#     Parameters
-#     ----------
-#     b_mod : ndarray
-#         The calculated aperture containing shear dilation.
-#     b_exp : ndarray
-#         The measured aperture containing shear dilation.
-#     output : float
-#         The computed RMSE of the two sets of data.
-#     """
-#     if np.isnan(b_mod).any():
-#         dest = np.inf
-#     else:
-#         dest = np.sqrt(np.sum((b_mod - b_exp) ** 2) / len(b_mod))
-#     return dest # np.sqrt(np.sum((b_mod - b_exp) ** 2) / len(b_mod))  # type: ignore
