@@ -3,18 +3,19 @@ import ctypes
 import numpy as np
 from .functions import *
 
-STATUS = "Developing"
+STATUS = "Develop"
+# STATUS = "Release"
 
 # Load the shared library
 current_dir = os.path.dirname(os.path.abspath(__file__))
-if STATUS == "Developing":
+if STATUS == "Develop":
     if os.name == "nt":
         # dll_path = os.path.join(current_dir, "build/bin/Debug/rsf.dll")
         dll_path = os.path.join(current_dir, "build/bin/Release/rsf.dll")
     else:
         # dll_path = os.path.join(current_dir, "build/bin/Debug/librsf.so")
         dll_path = os.path.join(current_dir, "build/bin/Release/librsf.so")
-elif STATUS == "Releasing":
+elif STATUS == "Release":
     if os.name == "nt":
         dll_path = os.path.join(current_dir, "bin/rsf.dll")
     else:
