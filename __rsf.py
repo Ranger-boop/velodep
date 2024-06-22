@@ -2,7 +2,6 @@ import ctypes
 import numpy as np
 from .__load_dll import *
 
-dll = ctypes.cdll.LoadLibrary(dll_path)
 
 # Define the argtypes and restypes of the C apis.
 dll.new_RSF_tau_fix.restype = ctypes.POINTER(ctypes.c_void_p)

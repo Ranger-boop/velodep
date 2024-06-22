@@ -1,4 +1,5 @@
 import os
+import ctypes
 
 STATUS = "Develop"
 # STATUS = "Release"
@@ -18,4 +19,5 @@ elif STATUS == "Release":
     else:
         dll_path = os.path.join(current_dir, "lib/librsf.so")
 else:
-    raise AssertionError('''The variable named STATUS in "__load_dll.py" is not correctly set.''')
+    raise AssertionError('''The STATUS variable in "__load_dll.py" is not correctly set.''')
+dll = ctypes.cdll.LoadLibrary(dll_path)
