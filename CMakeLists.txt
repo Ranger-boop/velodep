@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(rsfsolver VERSION 0.1.1 LANGUAGES CXX)
+project(velodep VERSION 0.1.2 LANGUAGES CXX)
 
 # Set the compiler based on the system environment
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
@@ -25,15 +25,15 @@ set(HEADER_FILES ${HEADER_H_FILES} ${HEADER_HPP_FILES})
 file(GLOB_RECURSE SOURCE_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
 # Creat the dynamic link library
-add_library(rsf SHARED ${SOURCE_FILES} ${HEADER_FILES})
+add_library(velodep SHARED ${SOURCE_FILES} ${HEADER_FILES})
 
 # If on a Windows platform, define the macro BUILDING_DLL to export APIs
 if (WIN32)
-    target_compile_definitions(rsf PRIVATE BUILDING_DLL)
+    target_compile_definitions(velodep PRIVATE BUILDING_DLL)
 endif()
 
 # # Set the output directory of binary files
-set_target_properties(rsf PROPERTIES
+set_target_properties(velodep PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY_DEBUG ${PROJECT_BINARY_DIR}/bin/Debug
     RUNTIME_OUTPUT_DIRECTORY_RELEASE ${PROJECT_BINARY_DIR}/bin/Release
     LIBRARY_OUTPUT_DIRECTORY_DEBUG ${PROJECT_BINARY_DIR}/lib/Debug
@@ -51,7 +51,7 @@ message(STATUS "Generator: ${CMAKE_GENERATOR}")
 message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
 
 # Install targets
-install(TARGETS rsf
+install(TARGETS velodep
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib

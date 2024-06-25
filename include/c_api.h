@@ -68,6 +68,8 @@ API size_t get_len_b_FracAperture(FracAperture* p_frac_apt);
 
 API double* get_b_mod_FracAperture(FracAperture* p_frac_apt);
 
+API double* get_b_slip_FracAperture(FracAperture* p_frac_apt);
+
 #ifdef __cplusplus
 }
 #endif

@@ -44,3 +44,8 @@ double* FracAperture::get_b_mod()
 {
 	return this->p_impl->get_b_mod();
 }
+
+double* FracAperture::get_b_slip()
+{
+	return this->p_impl->get_b_slip();
+}

@@ -109,7 +109,7 @@ class RSF_tau_fix:
         size_pp = self.pp.size
         ptr_time = self.time.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
         size_time = self.time.size
-        self.obj = dll.new_RSF_tau_fix(
+        self.handle = dll.new_RSF_tau_fix(
             a,
             b,
             Dc,
@@ -126,38 +126,38 @@ class RSF_tau_fix:
         )
 
     def __del__(self) -> None:
-        dll.delete_RSF(self.obj)
+        dll.delete_RSF(self.handle)
 
     def solve_rk4(self) -> None:
-        dll.solve_RSF(self.obj)
+        dll.solve_RSF(self.handle)
 
     @property
     def len_RSF_sol(self) -> ctypes.c_size_t:
-        return dll.get_len_RSF_sol(self.obj)
+        return dll.get_len_RSF_sol(self.handle)
 
     @property
     def disp(self) -> np.ndarray:
-        ptr = dll.get_disp_RSF(self.obj)
+        ptr = dll.get_disp_RSF(self.handle)
         return np.ctypeslib.as_array(ptr, shape=(self.len_RSF_sol,))
 
     @property
     def theta(self) -> np.ndarray:
-        ptr = dll.get_theta_RSF(self.obj)
+        ptr = dll.get_theta_RSF(self.handle)
         return np.ctypeslib.as_array(ptr, shape=(self.len_RSF_sol,))
 
     @property
     def tau(self) -> np.ndarray:
-        ptr = dll.get_tau_RSF(self.obj)
+        ptr = dll.get_tau_RSF(self.handle)
         return np.ctypeslib.as_array(ptr, shape=(self.len_RSF_sol,))
 
     @property
     def vel(self) -> np.ndarray:
-        ptr = dll.get_vel_RSF(self.obj)
+        ptr = dll.get_vel_RSF(self.handle)
         return np.ctypeslib.as_array(ptr, shape=(self.len_RSF_sol,))
 
     @property
     def mu(self) -> np.ndarray:
-        ptr = dll.get_mu_RSF(self.obj)
+        ptr = dll.get_mu_RSF(self.handle)
         return np.ctypeslib.as_array(ptr, shape=(self.len_RSF_sol,))
 
 
@@ -252,7 +252,7 @@ class RSF_tau_chg(RSF_tau_fix):
         size_pp = self.pp.size
         ptr_time = self.time.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
         size_time = self.time.size
-        self.obj = dll.new_RSF_tau_chg(
+        self.handle = dll.new_RSF_tau_chg(
             a,
             b,
             Dc,

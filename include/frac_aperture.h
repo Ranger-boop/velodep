@@ -26,6 +26,8 @@ public:
 
 	double* get_b_mod();
 
+	double* get_b_slip();
+
 private:
 	FracApertureImpl* p_impl;
 };

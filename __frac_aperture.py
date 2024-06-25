@@ -29,6 +29,9 @@ dll.get_len_b_FracAperture.argtypes = (ctypes.POINTER(ctypes.c_void_p),)
 dll.get_b_mod_FracAperture.restype = ctypes.POINTER(ctypes.c_double)
 dll.get_b_mod_FracAperture.argtypes = (ctypes.POINTER(ctypes.c_void_p),)
 
+dll.get_b_slip_FracAperture.restype = ctypes.POINTER(ctypes.c_double)
+dll.get_b_slip_FracAperture.argtypes = (ctypes.POINTER(ctypes.c_void_p),)
+
 
 class FracAperture:
     """
@@ -86,7 +89,7 @@ class FracAperture:
         size_u_ini = self.u_ini.size
         ptr_v = self.v.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
         size_v = self.v.size
-        self.obj = dll.new_FracAperture(
+        self.handle = dll.new_FracAperture(
             dil_fact,
             D_c,
             dil_ang,
@@ -100,16 +103,21 @@ class FracAperture:
         )
 
     def __del__(self) -> None:
-        dll.delete_FracAperture(self.obj)
+        dll.delete_FracAperture(self.handle)
 
     def solve(self) -> None:
-        dll.solve_FracAperture(self.obj)
+        dll.solve_FracAperture(self.handle)
 
     @property
     def __len_b(self) -> ctypes.c_size_t:
-        return dll.get_len_b_FracAperture(self.obj)
+        return dll.get_len_b_FracAperture(self.handle)
 
     @property
     def b_mod(self) -> np.ndarray:
-        ptr = dll.get_b_mod_FracAperture(self.obj)
+        ptr = dll.get_b_mod_FracAperture(self.handle)
+        return np.ctypeslib.as_array(ptr, shape=(self.__len_b,))
+    
+    @property
+    def b_slip(self) -> np.ndarray:
+        ptr = dll.get_b_slip_FracAperture(self.handle)
         return np.ctypeslib.as_array(ptr, shape=(self.__len_b,))

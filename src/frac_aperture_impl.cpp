@@ -105,3 +105,8 @@ double* FracApertureImpl::get_b_mod()
 {
 	return &(this->b_mod[0]);
 }
+
+double* FracApertureImpl::get_b_slip()
+{
+	return &(this->b_slip[0]);
+}

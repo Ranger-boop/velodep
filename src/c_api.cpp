@@ -143,6 +143,11 @@ double* get_b_mod_FracAperture(FracAperture* p_frac_apt)
     return p_frac_apt->get_b_mod();
 }
 
+double* get_b_slip_FracAperture(FracAperture* p_frac_apt)
+{
+    return p_frac_apt->get_b_slip();
+}
+
 #ifdef __cplusplus
 }
 #endif
