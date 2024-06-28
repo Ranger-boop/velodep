@@ -4,6 +4,7 @@
 #include <iostream>
 #include <valarray>
 #include "export_import.h"
+#include "rsf_tau_fix_impl.h"
 
 class API RSF_tau_fix
 {
@@ -56,7 +57,7 @@ public:
     // based on 4th Order Runge-Kutta method
     virtual void solve_rk4();
 
-    size_t get_len_out_para();
+    size_t get_len_out_para() const;
 
     double* get_disp();
 
@@ -71,46 +72,7 @@ public:
     virtual ~RSF_tau_fix();
 
 protected:
-    // Calculate slip velocity based on theta and tau
-    double velocity(double theta_, double tau_) const;
-
-    // Calculate the time derivative of slip displacement (i.e., slip velocity)
-    double dD_dt(double disp_, double theta_, double tau_) const;
-
-    // Calculate the time derivative of state variable (theta)
-    double dTheta_dt(double disp_, double theta_, double tau_) const;
-
-    // Calculate the time derivative of shear stress (tau)
-    virtual double dTau_dt(double disp_, double theta_, double tau_) const;
-
-    // Consitutive parameters
-    double a;
-    double b;
-    double Dc;
-    double alpha;
-    // Predetermined parameters, initial values
-    double mu_0;
-    double v_0;
-    double disp_0;
-    double theta_0;
-    double tau_0;
-    // Sequential independent variables
-    std::valarray<double>* sig_n;
-    std::valarray<double>* pp;
-    std::valarray<double>* t;
-    // Variables computed based on independent variables
-    std::valarray<double>* sig_neff;
-    std::valarray<double>* dSig_neff_dt;
-    // Evolving independent variables
-    double sig_neff_evl;
-    double dSig_neff_dt_evl;
-    // output parameters
-    double* vel;
-    double* disp;
-    double* theta;
-    double* tau;
-    double* mu;
-    size_t len_out_para;  // Length of each output parameter
+    RsfTauFixImpl* p_impl;
 };
 
 #endif // RSF_TAU_FIX_H_

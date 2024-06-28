@@ -14,6 +14,13 @@ FracAperture::FracAperture(
 	);
 }
 
+FracAperture::~FracAperture() 
+{ 
+	if (this->p_impl) {
+		delete this->p_impl;
+	}
+}
+
 FracAperture::FracAperture(const FracAperture& frac_apt)
 {
 	this->p_impl = new FracApertureImpl(*frac_apt.p_impl);
@@ -23,7 +30,6 @@ FracAperture& FracAperture::operator=(const FracAperture& frac_apt)
 {
 	if (this != &frac_apt) {
 		delete this->p_impl;
-
 		this->p_impl = new FracApertureImpl(*frac_apt.p_impl);
 	}
 

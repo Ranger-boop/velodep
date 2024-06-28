@@ -14,7 +14,7 @@ public:
 		const double v[], size_t num_v
 	);
 
-	~FracAperture() { delete p_impl; };
+	~FracAperture();
 
 	FracAperture(const FracAperture& frac_apt);
 
