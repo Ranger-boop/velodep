@@ -130,5 +130,6 @@ RSF_tau_fix::~RSF_tau_fix()
 {
     if (this->p_impl) {
         delete this->p_impl;
+        this->p_impl = nullptr;
     }
 }

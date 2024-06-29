@@ -18,6 +18,7 @@ FracAperture::~FracAperture()
 { 
 	if (this->p_impl) {
 		delete this->p_impl;
+		this->p_impl = nullptr;
 	}
 }
 

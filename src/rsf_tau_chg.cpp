@@ -115,7 +115,8 @@ void RSF_tau_chg::solve_rk4()
 
 RSF_tau_chg::~RSF_tau_chg() 
 {
-    if (this->p_impl) {
-        delete this->p_impl;
-    }
+    //if (this->p_impl) {
+    //    delete this->p_impl;
+    //    this->p_impl = nullptr;
+    //}
 }

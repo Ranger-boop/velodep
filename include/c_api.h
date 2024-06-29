@@ -30,23 +30,23 @@ API RSF_tau_chg * new_RSF_tau_chg(
 );
 
 // Destruct the pointed object
-API void delete_RSF(RSF_tau_fix *rsf_ptr);
+API void delete_RSF(RSF_tau_fix *p_rsf);
 
 // Call the solver to solve the RSF equation group
-API void solve_RSF(RSF_tau_fix *rsf_ptr);
+API void solve_RSF(RSF_tau_fix * p_rsf);
 
 // Get the length of the solution array of the RSF equation group
-API size_t get_len_RSF_sol(RSF_tau_fix *rsf_ptr);
+API size_t get_len_RSF_sol(RSF_tau_fix * p_rsf);
 
-API double * get_disp_RSF(RSF_tau_fix *rsf_ptr);
+API double * get_disp_RSF(RSF_tau_fix * p_rsf);
 
-API double * get_theta_RSF(RSF_tau_fix *rsf_ptr);
+API double * get_theta_RSF(RSF_tau_fix * p_rsf);
 
-API double * get_tau_RSF(RSF_tau_fix *rsf_ptr);
+API double * get_tau_RSF(RSF_tau_fix *p_rsf);
 
-API double * get_vel_RSF(RSF_tau_fix *rsf_ptr);
+API double * get_vel_RSF(RSF_tau_fix *p_rsf);
 
-API double * get_mu_RSF(RSF_tau_fix *rsf_ptr);
+API double * get_mu_RSF(RSF_tau_fix *p_rsf);
 
 
 // C API for the class FracAperture

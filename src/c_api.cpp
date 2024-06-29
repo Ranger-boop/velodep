@@ -54,15 +54,16 @@ RSF_tau_chg* new_RSF_tau_chg(
     
 }
 
-void delete_RSF(RSF_tau_fix* rsf_ptr)
+void delete_RSF(RSF_tau_fix* p_rsf)
 {
-    delete rsf_ptr;
+    delete p_rsf;
+    p_rsf = nullptr;
 }
 
-void solve_RSF(RSF_tau_fix* rsf_ptr)
+void solve_RSF(RSF_tau_fix* p_rsf)
 {
     try {
-        rsf_ptr->solve_rk4();
+        p_rsf->solve_rk4();
     }
     catch (const std::logic_error& e) {
         std::cerr << "Logic error: " << e.what() << std::endl;
@@ -71,34 +72,34 @@ void solve_RSF(RSF_tau_fix* rsf_ptr)
     
 }
 
-size_t get_len_RSF_sol(RSF_tau_fix* rsf_ptr)
+size_t get_len_RSF_sol(RSF_tau_fix* p_rsf)
 {
-    return rsf_ptr->get_len_out_para();
+    return p_rsf->get_len_out_para();
 }
 
-double* get_disp_RSF(RSF_tau_fix* rsf_ptr)
+double* get_disp_RSF(RSF_tau_fix* p_rsf)
 {
-    return rsf_ptr->get_disp();
+    return p_rsf->get_disp();
 }
 
-double* get_theta_RSF(RSF_tau_fix* rsf_ptr)
+double* get_theta_RSF(RSF_tau_fix* p_rsf)
 {
-    return rsf_ptr->get_theta();
+    return p_rsf->get_theta();
 }
 
-double* get_tau_RSF(RSF_tau_fix* rsf_ptr)
+double* get_tau_RSF(RSF_tau_fix* p_rsf)
 {
-    return rsf_ptr->get_tau();
+    return p_rsf->get_tau();
 }
 
-double* get_vel_RSF(RSF_tau_fix* rsf_ptr)
+double* get_vel_RSF(RSF_tau_fix* p_rsf)
 {
-    return rsf_ptr->get_vel();
+    return p_rsf->get_vel();
 }
 
-double* get_mu_RSF(RSF_tau_fix* rsf_ptr)
+double* get_mu_RSF(RSF_tau_fix* p_rsf)
 {
-    return rsf_ptr->get_mu();
+    return p_rsf->get_mu();
 }
 
 
@@ -126,6 +127,7 @@ FracAperture* new_FracAperture(
 void delete_FracAperture(FracAperture* p_frac_apt)
 {
     delete p_frac_apt;
+    p_frac_apt = nullptr;
 }
 
 void solve_FracAperture(FracAperture* p_frac_apt)
