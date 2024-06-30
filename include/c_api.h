@@ -10,8 +10,8 @@
 extern "C" {
 #endif
 
-// Creat a RSF_tau_fix object
-API RSF_tau_fix * new_RSF_tau_fix(
+// Creat a RsfTauFix object
+API RsfTauFix* new_RsfTauFix(
     double a, double b, double Dc, double alpha, 
     double mu_0, double v_0, double disp_0,
     const double sig_n[], size_t num_sig_n, 
@@ -19,8 +19,8 @@ API RSF_tau_fix * new_RSF_tau_fix(
     const double t[], size_t num_t
 );
 
-// Creat a RSF_tau_chg object
-API RSF_tau_chg * new_RSF_tau_chg(
+// Creat a RsfTauChg object
+API RsfTauChg* new_RsfTauChg(
     double a, double b, double Dc, double alpha, 
     double k_s, double mu_0, double v_0, double disp_0,
     const double vlp[], size_t num_vlp,
@@ -30,23 +30,23 @@ API RSF_tau_chg * new_RSF_tau_chg(
 );
 
 // Destruct the pointed object
-API void delete_RSF(RSF_tau_fix *p_rsf);
+API void delete_RSF(RsfTauFix* p_rsf);
 
 // Call the solver to solve the RSF equation group
-API void solve_RSF(RSF_tau_fix * p_rsf);
+API void solve_RSF(RsfTauFix* p_rsf);
 
 // Get the length of the solution array of the RSF equation group
-API size_t get_len_RSF_sol(RSF_tau_fix * p_rsf);
+API size_t get_len_RSF_sol(RsfTauFix* p_rsf);
 
-API double * get_disp_RSF(RSF_tau_fix * p_rsf);
+API double* get_disp_RSF(RsfTauFix* p_rsf);
 
-API double * get_theta_RSF(RSF_tau_fix * p_rsf);
+API double* get_theta_RSF(RsfTauFix* p_rsf);
 
-API double * get_tau_RSF(RSF_tau_fix *p_rsf);
+API double* get_tau_RSF(RsfTauFix* p_rsf);
 
-API double * get_vel_RSF(RSF_tau_fix *p_rsf);
+API double* get_vel_RSF(RsfTauFix* p_rsf);
 
-API double * get_mu_RSF(RSF_tau_fix *p_rsf);
+API double* get_mu_RSF(RsfTauFix* p_rsf);
 
 
 // C API for the class FracAperture

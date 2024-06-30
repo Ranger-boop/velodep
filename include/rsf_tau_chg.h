@@ -7,19 +7,19 @@
 #include "export_import.h"
 #include "rsf_tau_fix.h"
 
-class API RSF_tau_chg : public RSF_tau_fix
+class API RsfTauChg : public RsfTauFix
 {
 public:
-    RSF_tau_chg();
+    RsfTauChg();
 
-    RSF_tau_chg(double a, double b, double Dc, double alpha);
+    RsfTauChg(double a, double b, double Dc, double alpha);
 
-    RSF_tau_chg(
+    RsfTauChg(
         double a, double b, double Dc, double alpha, 
         double k_s, double mu_0, double v_0, double disp_0
     );
 
-    RSF_tau_chg(
+    RsfTauChg(
         double a, double b, double Dc, double alpha, 
         double k_s, double mu_0, double v_0, double disp_0,
         const double vlp[], size_t num_vlp,
@@ -28,9 +28,9 @@ public:
         const double t[], size_t num_t
     );
 
-    RSF_tau_chg(const RSF_tau_chg& rsf);
+    RsfTauChg(const RsfTauChg& rsf);
 
-    RSF_tau_chg& operator=(const RSF_tau_chg& rsf);
+    RsfTauChg& operator=(const RsfTauChg& rsf);
 
     // Set initial values of medium stiffness, friction coefficient, slip velocity, and slip displacement
     virtual void set_ini_vals(double mu_0, double v_0, double disp_0) override
@@ -57,9 +57,9 @@ public:
 
     // Solve the equation group of the rate-and-state friction law
     // based on 4th Order Runge-Kutta method
-    virtual void solve_rk4() override;
+    // virtual void solve_rk4() override;
 
-    virtual ~RSF_tau_chg();
+    virtual ~RsfTauChg();
 };
 
 #endif  // RSF_TAU_CHG_H_

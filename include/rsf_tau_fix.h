@@ -6,19 +6,19 @@
 #include "export_import.h"
 #include "rsf_tau_fix_impl.h"
 
-class API RSF_tau_fix
+class API RsfTauFix
 {
 public:
-    RSF_tau_fix();
+    RsfTauFix();
 
-    RSF_tau_fix(double a, double b, double Dc, double alpha);
+    RsfTauFix(double a, double b, double Dc, double alpha);
 
-    RSF_tau_fix(
+    RsfTauFix(
         double a, double b, double Dc, double alpha, 
         double mu_0, double v_0, double disp_0
     );
 
-    RSF_tau_fix(
+    RsfTauFix(
         double a, double b, double Dc, double alpha, 
         double mu_0, double v_0, double disp_0,
         const double sig_n[], size_t num_sig_n, 
@@ -26,9 +26,9 @@ public:
         const double t[], size_t num_t
     );
 
-    RSF_tau_fix(const RSF_tau_fix& rsf);
+    RsfTauFix(const RsfTauFix& rsf);
 
-    RSF_tau_fix& operator=(const RSF_tau_fix& rsf);
+    RsfTauFix& operator=(const RsfTauFix& rsf);
 
     // Set constitutive patameters of the rate-and-state friciton law,
     // including a, b, Dc and alpha
@@ -69,7 +69,7 @@ public:
 
     double* get_mu();
 
-    virtual ~RSF_tau_fix();
+    virtual ~RsfTauFix();
 
 protected:
     RsfTauFixImpl* p_impl;

@@ -4,8 +4,8 @@ from .__load_dll import *
 
 
 # Define the argtypes and restypes of the C apis.
-dll.new_RSF_tau_fix.restype = ctypes.POINTER(ctypes.c_void_p)
-dll.new_RSF_tau_fix.argtypes = (
+dll.new_RsfTauFix.restype = ctypes.POINTER(ctypes.c_void_p)
+dll.new_RsfTauFix.argtypes = (
     ctypes.c_double,
     ctypes.c_double,
     ctypes.c_double,
@@ -45,7 +45,7 @@ dll.get_mu_RSF.restype = ctypes.POINTER(ctypes.c_double)
 dll.get_mu_RSF.argtypes = (ctypes.POINTER(ctypes.c_void_p),)
 
 
-class RSF_tau_fix:
+class RsfTauFix:
     """
     Runge-Kutta solver for the equation group of the rate-and-state friction law
     with the shear stress on the fault fixed.
@@ -109,7 +109,7 @@ class RSF_tau_fix:
         size_pp = self.pp.size
         ptr_time = self.time.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
         size_time = self.time.size
-        self.handle = dll.new_RSF_tau_fix(
+        self.handle = dll.new_RsfTauFix(
             a,
             b,
             Dc,
@@ -162,8 +162,8 @@ class RSF_tau_fix:
 
 
 # Define the argtypes and restypes of the C apis.
-dll.new_RSF_tau_chg.restype = ctypes.POINTER(ctypes.c_void_p)
-dll.new_RSF_tau_chg.argtypes = (
+dll.new_RsfTauChg.restype = ctypes.POINTER(ctypes.c_void_p)
+dll.new_RsfTauChg.argtypes = (
     ctypes.c_double,
     ctypes.c_double,
     ctypes.c_double,
@@ -183,7 +183,7 @@ dll.new_RSF_tau_chg.argtypes = (
 )
 
 
-class RSF_tau_chg(RSF_tau_fix):
+class RsfTauChg(RsfTauFix):
     """
     Runge-Kutta solver for the equation group of the rate-and-state friction law
     with the shear stress on the fault changable.
@@ -252,7 +252,7 @@ class RSF_tau_chg(RSF_tau_fix):
         size_pp = self.pp.size
         ptr_time = self.time.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
         size_time = self.time.size
-        self.handle = dll.new_RSF_tau_chg(
+        self.handle = dll.new_RsfTauChg(
             a,
             b,
             Dc,

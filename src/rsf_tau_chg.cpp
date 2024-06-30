@@ -6,7 +6,7 @@
 #include "rsf_tau_chg.h"
 #include "rsf_tau_chg_impl.h"
 
-void RSF_tau_chg::set_ini_vals(double k_s, double mu_0, double v_0, double disp_0)
+void RsfTauChg::set_ini_vals(double k_s, double mu_0, double v_0, double disp_0)
 {
     if (RsfTauChgImpl* l_p_impl = dynamic_cast<RsfTauChgImpl*>(this->p_impl)) {
         l_p_impl->set_ini_vals(k_s, mu_0, v_0, disp_0);
@@ -16,7 +16,7 @@ void RSF_tau_chg::set_ini_vals(double k_s, double mu_0, double v_0, double disp_
     }
 }
 
-void RSF_tau_chg::set_indpt_val(
+void RsfTauChg::set_indpt_val(
     const double vlp[], size_t num_vlp,
     const double sig_n[], size_t num_sig_n, 
     const double pp[], size_t num_pp,
@@ -36,19 +36,19 @@ void RSF_tau_chg::set_indpt_val(
     }
 }
 
-RSF_tau_chg::RSF_tau_chg()
+RsfTauChg::RsfTauChg()
 {
     this->p_impl = new RsfTauChgImpl();
 }
 
-RSF_tau_chg::RSF_tau_chg(
+RsfTauChg::RsfTauChg(
     double a, double b, double Dc, double alpha
 )
 {
     this->p_impl = new RsfTauChgImpl(a, b, Dc, alpha);
 }
 
-RSF_tau_chg::RSF_tau_chg(
+RsfTauChg::RsfTauChg(
     double a, double b, double Dc, double alpha, 
     double k_s, double mu_0, double v_0, double disp_0
 )
@@ -59,7 +59,7 @@ RSF_tau_chg::RSF_tau_chg(
     );
 }
 
-RSF_tau_chg::RSF_tau_chg(
+RsfTauChg::RsfTauChg(
     double a, double b, double Dc, double alpha, 
     double k_s, double mu_0, double v_0, double disp_0,
     const double vlp[], size_t num_vlp,
@@ -78,7 +78,7 @@ RSF_tau_chg::RSF_tau_chg(
     );
 }
 
-RSF_tau_chg::RSF_tau_chg(const RSF_tau_chg& rsf)
+RsfTauChg::RsfTauChg(const RsfTauChg& rsf)
 {
     if (RsfTauChgImpl* rsf_p_impl = dynamic_cast<RsfTauChgImpl*>(rsf.p_impl)) {
         this->p_impl = new RsfTauChgImpl(*rsf_p_impl);
@@ -88,7 +88,7 @@ RSF_tau_chg::RSF_tau_chg(const RSF_tau_chg& rsf)
     }
 }
 
-RSF_tau_chg& RSF_tau_chg::operator=(const RSF_tau_chg& rsf)
+RsfTauChg& RsfTauChg::operator=(const RsfTauChg& rsf)
 {
     if (this != &rsf) {
         delete this->p_impl;
@@ -103,17 +103,18 @@ RSF_tau_chg& RSF_tau_chg::operator=(const RSF_tau_chg& rsf)
     return *this;
 }
 
-void RSF_tau_chg::solve_rk4()
-{
-    if (RsfTauChgImpl* l_p_impl = dynamic_cast<RsfTauChgImpl*>(this->p_impl)) {
-        l_p_impl->solve_rk4();
-    }
-    else {
-        std::cerr << "Error: dynamic cast failed in class RsfTauChg." << std::endl;
-    }
-}
+//void RsfTauChg::solve_rk4()
+//{
+//    //if (RsfTauChgImpl* l_p_impl = dynamic_cast<RsfTauChgImpl*>(this->p_impl)) {
+//    //    l_p_impl->solve_rk4();
+//    //}
+//    //else {
+//    //    std::cerr << "Error: dynamic cast failed in class RsfTauChg." << std::endl;
+//    //}
+//    this->p_impl->solve_rk4();
+//}
 
-RSF_tau_chg::~RSF_tau_chg() 
+RsfTauChg::~RsfTauChg() 
 {
     //if (this->p_impl) {
     //    delete this->p_impl;

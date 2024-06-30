@@ -4,5 +4,6 @@ __pycache__
 build/*
 install
 CMakeSettings.json
+cpp.hint
 *.py[cod]
 *.ipynb

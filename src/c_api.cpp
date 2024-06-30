@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-RSF_tau_fix* new_RSF_tau_fix(
+RsfTauFix* new_RsfTauFix(
     double a, double b, double Dc, double alpha, 
     double mu_0, double v_0, double disp_0,
     const double sig_n[], size_t num_sig_n, 
@@ -14,7 +14,7 @@ RSF_tau_fix* new_RSF_tau_fix(
 )
 {
     try {
-        return new RSF_tau_fix(
+        return new RsfTauFix(
             a, b, Dc, alpha,
             mu_0, v_0, disp_0,
             sig_n, num_sig_n,
@@ -28,7 +28,7 @@ RSF_tau_fix* new_RSF_tau_fix(
     }
 }
 
-RSF_tau_chg* new_RSF_tau_chg(
+RsfTauChg* new_RsfTauChg(
     double a, double b, double Dc, double alpha, 
     double k_s, double mu_0, double v_0, double disp_0,
     const double vlp[], size_t num_vlp,
@@ -38,7 +38,7 @@ RSF_tau_chg* new_RSF_tau_chg(
 )
 {
     try {
-        return new RSF_tau_chg(
+        return new RsfTauChg(
             a, b, Dc, alpha,
             k_s, mu_0, v_0, disp_0,
             vlp, num_vlp,
@@ -54,13 +54,13 @@ RSF_tau_chg* new_RSF_tau_chg(
     
 }
 
-void delete_RSF(RSF_tau_fix* p_rsf)
+void delete_RSF(RsfTauFix* p_rsf)
 {
     delete p_rsf;
     p_rsf = nullptr;
 }
 
-void solve_RSF(RSF_tau_fix* p_rsf)
+void solve_RSF(RsfTauFix* p_rsf)
 {
     try {
         p_rsf->solve_rk4();
@@ -72,32 +72,32 @@ void solve_RSF(RSF_tau_fix* p_rsf)
     
 }
 
-size_t get_len_RSF_sol(RSF_tau_fix* p_rsf)
+size_t get_len_RSF_sol(RsfTauFix* p_rsf)
 {
     return p_rsf->get_len_out_para();
 }
 
-double* get_disp_RSF(RSF_tau_fix* p_rsf)
+double* get_disp_RSF(RsfTauFix* p_rsf)
 {
     return p_rsf->get_disp();
 }
 
-double* get_theta_RSF(RSF_tau_fix* p_rsf)
+double* get_theta_RSF(RsfTauFix* p_rsf)
 {
     return p_rsf->get_theta();
 }
 
-double* get_tau_RSF(RSF_tau_fix* p_rsf)
+double* get_tau_RSF(RsfTauFix* p_rsf)
 {
     return p_rsf->get_tau();
 }
 
-double* get_vel_RSF(RSF_tau_fix* p_rsf)
+double* get_vel_RSF(RsfTauFix* p_rsf)
 {
     return p_rsf->get_vel();
 }
 
-double* get_mu_RSF(RSF_tau_fix* p_rsf)
+double* get_mu_RSF(RsfTauFix* p_rsf)
 {
     return p_rsf->get_mu();
 }
