@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 project(velodep VERSION 0.2.0 LANGUAGES CXX)
 
+# Set the CMP0095 policy
+cmake_policy(SET CMP0095 NEW)
+
 if(DEFINED ENV{CC})
     set(CMAKE_C_COMPILER $ENV{CC})
 endif()
@@ -83,6 +86,8 @@ option(PACK_DEPENDENCIES "Pack required system libraries." OFF)
 if(PACK_DEPENDENCIES)
     # Include the InstallRequiredSystemLibraries module
     include(InstallRequiredSystemLibraries)
+    # Debug output to check the contents of CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS
+    message(STATUS "CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS: ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}")
     # Install the required system libraries
     if(WIN32)
         install(PROGRAMS ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}
