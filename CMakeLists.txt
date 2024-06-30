@@ -1,19 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(velodep VERSION 0.2.0 LANGUAGES CXX)
 
-# Set the compiler based on the system environment
-# if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
-#     if(DEFINED ENV{CC})
-#         set(CMAKE_C_COMPILER $ENV{CC})
-#     endif()
-
-#     if(DEFINED ENV{CXX})
-#         set(CMAKE_CXX_COMPILER $ENV{CXX})
-#     endif()
-# elseif (CMAKE_SYSTEM_NAME STREQUAL "Windows")
-#     set(CMAKE_C_COMPILER cl)
-#     set(CMAKE_CXX_COMPILER cl)
-# endif()
 if(DEFINED ENV{CC})
     set(CMAKE_C_COMPILER $ENV{CC})
 endif()
@@ -36,22 +23,30 @@ set(HEADER_FILES ${HEADER_H_FILES} ${HEADER_HPP_FILES})
 file(GLOB_RECURSE SOURCE_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
 # Creat the dynamic link library
-add_library(velodep SHARED ${SOURCE_FILES} ${HEADER_FILES})
+add_library(velodep SHARED ${SOURCE_FILES})
 
 # If on a Windows platform, define the macro BUILDING_DLL to export APIs
-if (WIN32)
+if(WIN32)
     target_compile_definitions(velodep PRIVATE BUILDING_DLL)
 endif()
 
-# # Set the output directory of binary files
+
+# Set the output directory of binary files
 set_target_properties(velodep PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY_DEBUG ${PROJECT_BINARY_DIR}/bin/Debug
-    RUNTIME_OUTPUT_DIRECTORY_RELEASE ${PROJECT_BINARY_DIR}/bin/Release
-    LIBRARY_OUTPUT_DIRECTORY_DEBUG ${PROJECT_BINARY_DIR}/lib/Debug
-    LIBRARY_OUTPUT_DIRECTORY_RELEASE ${PROJECT_BINARY_DIR}/lib/Release
-    ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${PROJECT_BINARY_DIR}/lib/Debug
-    ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${PROJECT_BINARY_DIR}/lib/Release
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG ${PROJECT_BINARY_DIR}/Debug/bin
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE ${PROJECT_BINARY_DIR}/Release/bin
+    LIBRARY_OUTPUT_DIRECTORY_DEBUG ${PROJECT_BINARY_DIR}/Debug/lib
+    LIBRARY_OUTPUT_DIRECTORY_RELEASE ${PROJECT_BINARY_DIR}/Release/lib
+    ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${PROJECT_BINARY_DIR}/Debug/lib
+    ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${PROJECT_BINARY_DIR}/Release/lib
 )
+if(UNIX)
+    # Set RPATH (the search path of runtime library)
+    set_target_properties(velodep PROPERTIES
+        INSTALL_RPATH "\${ORIGIN}"
+    )
+endif()
+
 
 # Display the information of compilers
 message(STATUS "C Compiler: ${CMAKE_C_COMPILER}")
@@ -60,6 +55,7 @@ message(STATUS "CXX Compiler: ${CMAKE_CXX_COMPILER}")
 message(STATUS "Generator: ${CMAKE_GENERATOR}")
 # Display the build type
 message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
+
 
 # Install targets
 install(TARGETS velodep
@@ -80,11 +76,39 @@ file(GLOB_RECURSE PYTHON_FILES ${PROJECT_SOURCE_DIR}/*.py)
 # install(FILES ${PROJECT_SOURCE_DIR}/*.py DESTINATION .)
 install(FILES ${PYTHON_FILES} DESTINATION .)
 
-# CPack configurations
-set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
-set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
-set(CPACK_PACKAGE_CONTACT "zhangsupeng18@mails.ucas.ac.cn")
-set(CPACK_GENERATOR "ZIP")
 
-# Include the CPack module
-include(CPack)
+# Declare the PACK_DEPENDENCIES option
+option(PACK_DEPENDENCIES "Pack required system libraries." OFF)
+# Conditionally install the required system libraries if PACK_DEPENDENCIES is defined
+if(PACK_DEPENDENCIES)
+    # Include the InstallRequiredSystemLibraries module
+    include(InstallRequiredSystemLibraries)
+    # Install the required system libraries
+    if(WIN32)
+        install(PROGRAMS ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}
+                DESTINATION bin)
+    elseif(UNIX)
+        install(PROGRAMS ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}
+                DESTINATION lib)
+    endif()
+endif()
+
+
+# CPack configurations
+if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+    set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
+    set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+    set(CPACK_PACKAGE_CONTACT "zhangsupeng18@mails.ucas.ac.cn")
+    set(CPACK_PACKAGE_DESCRIPTION_SUMMARY 
+        "velodep - A tool to solve the velocity dependency of the slip behavior 
+         and aperture of a fault.")
+
+    if(WIN32)
+        set(CPACK_GENERATOR "ZIP")
+    elseif(UNIX)
+        set(CPACK_GENERATOR "TGZ")
+    endif()
+
+    # Include the CPack module
+    include(CPack)
+ endif()
